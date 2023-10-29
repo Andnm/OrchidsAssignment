@@ -27,26 +27,8 @@ export default function FavoritesScreen() {
   } = useFavorite(isFocused);
   const { top } = useSafeAreaInsets();
 
-  const goBack = () => {
-    navigation.goBack();
-  };
   const goToDetailScreen = (orchid) => {
     navigation.navigate("FavoriteDetail", { orchid });
-  };
-
-  const handleFilter = (categories) => {
-    if (categories.length == 0) {
-      setFavorites(favoritesBase.current);
-    } else {
-      const arr = [];
-      for (let i = 0; i < categories.length; i++) {
-        for (let j = 0; j < favoritesBase.current.length; j++) {
-          if (categories[i] == favoritesBase.current[j].category)
-            arr.push(favoritesBase.current[j]);
-        }
-      }
-      setFavorites(arr);
-    }
   };
 
   const renderItem = ({ item }) => (
@@ -78,7 +60,7 @@ export default function FavoritesScreen() {
       <View className="flex-row justify-between items-center my-4 mx-4">
         <Text className="text-2xl font-bold ">Favorites</Text>
 
-        {favorites.length > 0 && (
+        {favorites.length > 1 && (
           <TouchableOpacity
             onPress={() => {
               Alert.alert(
@@ -117,9 +99,6 @@ export default function FavoritesScreen() {
               <Text className="text-lg mb-3 mt-8">
                 No favorite orchids found.
               </Text>
-              {/* <TouchableOpacity onPress={goBack} className="p-2">
-                                <Text className="text-blue-500">Go Back</Text>
-                            </TouchableOpacity> */}
             </View>
           )}
         </>
